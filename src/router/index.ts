@@ -22,6 +22,23 @@ const routes = [
     name: 'home',
     component: () => import('@/views/home/view.vue')
   },
+  //
+  {
+    path: '/stores',
+    name: 'stores',
+    component: () => import('@/views/func/stores/view.vue')
+  },
+  //
+  {
+    path: '/wiki',
+    name: 'wiki',
+    component: () => import('@/views/func/wiki/view.vue')
+  },
+  {
+    path: '/list',
+    name: 'list',
+    component: () => import('@/views/func/wiki/list.vue')
+  },
   {
     path: '/pokes',
     name: 'pokes',
@@ -33,9 +50,9 @@ const routes = [
     component: () => import('@/views/func/mh/view.vue')
   },
   {
-    path: '/mho2',
-    name: 'mho2',
-    component: () => import('@/views/func/mho2/view.vue')
+    path: '/mhs2',
+    name: 'mhs2',
+    component: () => import('@/views/func/mhs2/view.vue')
   },
   // 配置404页面
   {

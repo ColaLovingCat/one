@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, reactive } from 'vue'
 import * as db from './datas'
 
 import pokes from './pokes.vue'
@@ -7,23 +7,32 @@ import pokes from './pokes.vue'
 onMounted(() => {
     datas.value = [...db.pokes]
     types.value = [...db.types]
+    natures.value = [...db.natures]
+    timelines.value = [...db.timelines]
+})
+
+const searchInfos = reactive({
+    text: '',
 })
 
 const datas: any = ref([])
+const changeMark: any = ref(false)
 const dataShow = computed(() => {
-    return datas.value
+    let result: any = []
+    if (searchInfos.text != '') {
+        datas.value.map((item: any) => {
+            if (item.name.indexOf(searchInfos.text) > -1) {
+                result.push({ ...item })
+            }
+        })
+    } else {
+        result = [...datas.value]
+    }
+    return result
 })
 
-const changeShape = (no: number, shape: any) => {
-    console.log('Testing: ', no, shape);
-    let temp = datas.value.find((a: any) => a.no == no)
-    if (temp) {
-        Object.assign(temp, shape)
-    }
-}
-
+const typeModal = ref(false)
 const types: any = ref([])
-
 const getStyle = (values: any) => {
     let result = {
         color: "#fff",
@@ -55,16 +64,60 @@ const getStyle = (values: any) => {
     return result
 }
 
+const natureModal = ref(false)
+const natures: any = ref([])
+
+const timelineModal = ref(false)
+const timelines: any = ref([])
+
+const showModal = (action: string, values: any) => {
+    switch (action) {
+        case 'type': {
+            typeModal.value = true
+            break
+        }
+        case 'nature': {
+            natureModal.value = true
+            break
+        }
+        case 'timeline': {
+            timelineModal.value = true
+            break
+        }
+    }
+}
 </script>
 
 <template>
     <div class="contents">
+        <div class="box-search">
+            <div class="logo">
+                <img src="/docs/pokemons/systems/logo.png" alt="" srcset="">
+            </div>
+            <div class="left">
+                Total: {{ datas.length }}
+            </div>
+            <div class="right">
+                <a-button type="primary" @click="showModal('timeline', {})">游戏</a-button>
+                <a-button type="primary" @click="showModal('nature', {})">招式</a-button>
+                <a-button type="primary" @click="showModal('nature', {})">特性</a-button>
+                <a-button type="primary" @click="showModal('nature', {})">道具</a-button>
+                <a-button type="primary" @click="showModal('nature', {})">异常状态</a-button>
+                <a-button type="primary" @click="showModal('nature', {})">球种</a-button>
+                <a-button type="primary" @click="showModal('nature', {})">性格</a-button>
+                <a-button type="primary" @click="showModal('type', {})">属性</a-button>
+                <a-input v-model:value="searchInfos.text" placeholder="search" @change="changeMark = !changeMark" />
+            </div>
+        </div>
         <div class="list-pokes">
             <div v-for="(poke) in dataShow">
-                <pokes :data="poke"></pokes>
+                <pokes :data="poke" :change-mark="changeMark"></pokes>
             </div>
         </div>
 
+    </div>
+
+    <a-modal v-model:open="typeModal" width="990px" centered :closable="false" :header="null" :footer="null">
         <div class="box-types">
             <table class="table-types">
                 <thead>
@@ -87,20 +140,86 @@ const getStyle = (values: any) => {
                 </tbody>
             </table>
         </div>
-    </div>
+    </a-modal>
+
+    <a-modal v-model:open="natureModal" width="600px" centered :closable="false" :header="null" :footer="null">
+        <div class="list-natures">
+            <table class="table-natures">
+                <tbody>
+                    <tr v-for="item in natures">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.plus }}</td>
+                        <td>{{ item.down }}</td>
+                        <td>{{ item.like }}</td>
+                        <td>{{ item.dislike }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </a-modal>
+
+    <a-modal v-model:open="timelineModal" width="600px" centered :closable="false" :header="null" :footer="null">
+        <div class="box-timelines">
+            <a-timeline mode="alternate">
+                <a-timeline-item v-for="game in timelines">
+                    <div class="game-item">
+                        <div class="item-year">
+                            {{ game.year }}
+                        </div>
+                        <div class="item-name">
+                            {{ game.name }}
+                        </div>
+                        <div class="item-logo">
+                            <img :src="`/docs/pokemons/covers/${game.cover}`" alt="" srcset="">
+                        </div>
+                    </div>
+                </a-timeline-item>
+            </a-timeline>
+        </div>
+    </a-modal>
 </template>
 
 <style scoped lang="scss">
 .contents {
     background: url(/docs/pokemons/systems/bg.jpg);
+    background-size: 100% 100%;
+}
+
+.logo {
+    width: 215px;
+    height: 70px;
+}
+
+.box-search {
+    margin-bottom: 20px;
+    padding: 0 20px;
+    height: 40px;
+    color: #fff;
+    background: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .left {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .right {
+        display: flex;
+        column-gap: 15px;
+    }
 }
 
 .list-pokes {
+    padding: 10px 0;
+    height: calc(100vh - 150px);
+    overflow: auto;
     display: flex;
-    column-gap: 45px;
-    row-gap: 35px;
     flex-wrap: wrap;
     justify-content: center;
+    column-gap: 45px;
+    row-gap: 35px;
 }
 
 .table-types {
@@ -123,5 +242,17 @@ const getStyle = (values: any) => {
         line-height: 30px;
         border-radius: 50%;
     }
+}
+
+.table-natures {
+    td {
+        padding: 5px 10px;
+    }
+}
+
+.box-timelines {
+    height: calc(100vh - 100px);
+    overflow: auto;
+    padding: 10px 20px;
 }
 </style>

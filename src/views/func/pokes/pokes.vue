@@ -6,22 +6,26 @@ export default defineComponent({
     props: {
         data: {
             type: Object
+        },
+        changeMark: {
+            type: Boolean
         }
     },
     components: {},
     emits: [],
     setup(props, { emit }) {
-        const poke: any = reactive(props.data || {})
+        let poke: any = reactive(props.data || {})
 
         onMounted(() => { })
 
         watch(
-            () => props.data,
-            (newValue, oldValue) => { }
+            () => props.changeMark,
+            (newValue, oldValue) => {
+                poke = reactive(props.data || {})
+            }
         )
 
         const changeShape = (shape: any) => {
-            console.log('Testing: ', shape);
             Object.assign(poke, shape)
         }
 
@@ -39,10 +43,12 @@ export default defineComponent({
             <div class="item-infos" :class="poke.types[0]">
                 <div class="item-titles">
                     <h3>{{ poke.name }}</h3>
-                    <h3>#{{ poke.no }}</h3>
                 </div>
                 <img class="item-img" v-bind:src="'/docs/pokemons/pokes/' + poke.img"
                     v-bind:class="'item-' + poke.shape" alt="" srcset="">
+            </div>
+            <div class="item-no">
+                <h3>#{{ poke.no }}</h3>
             </div>
             <div class="item-types">
                 <img class="item-type" v-for="type in poke.types" v-bind:src="'/docs/pokemons/types/' + type + '.png'">
@@ -87,6 +93,14 @@ export default defineComponent({
         box-shadow: 10px 1px 10px rgba(0, 0, 0, 0.3);
     }
 
+    .item-no {
+        position: absolute;
+        left: 12px;
+        bottom: 8px;
+        color: #fff;
+        font-size: 19px;
+    }
+
     .item-infos {
         position: relative;
         width: 100%;
@@ -104,9 +118,39 @@ export default defineComponent({
             border-bottom: 4px solid #000;
         }
 
-        &.Grass {
+        &.Bug {
             .item-titles {
-                background: #3fa129;
+                background: #91a119;
+            }
+        }
+
+        &.Dark {
+            .item-titles {
+                background: #50413f;
+            }
+        }
+
+        &.Dragon {
+            .item-titles {
+                background: #5060e1;
+            }
+        }
+
+        &.Electric {
+            .item-titles {
+                background: #fac000;
+            }
+        }
+
+        &.Fairy {
+            .item-titles {
+                background: #ef70ef;
+            }
+        }
+
+        &.Fighting {
+            .item-titles {
+                background: #ff8000;
             }
         }
 
@@ -116,17 +160,36 @@ export default defineComponent({
             }
         }
 
-        &.Water {
+        &.Flying {
             .item-titles {
-                background: #2980ef;
+                background: #81b9ef;
             }
         }
 
-        &.Bug {
+        &.Ghost {
             .item-titles {
-                background: #91a119;
+                background: #704170;
             }
         }
+
+        &.Grass {
+            .item-titles {
+                background: #3fa129;
+            }
+        }
+
+        &.Ground {
+            .item-titles {
+                background: #915121;
+            }
+        }
+
+        &.Ice {
+            .item-titles {
+                background: #3fd8ff;
+            }
+        }
+
 
         &.Normal {
             .item-titles {
@@ -140,24 +203,30 @@ export default defineComponent({
             }
         }
 
-
-        &.Electric {
+        &.Psychic {
             .item-titles {
-                background: #fac000;
+                background: #ef4179;
             }
         }
 
-        &.Ground {
+        &.Rock {
             .item-titles {
-                background: #915121;
+                background: #afa981;
             }
         }
 
-        &.Fairy {
+        &.Steel {
             .item-titles {
-                background: #ef70ef;
+                background: #60a1b8;
             }
         }
+
+        &.Water {
+            .item-titles {
+                background: #2980ef;
+            }
+        }
+
     }
 
     .item-img {
