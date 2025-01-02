@@ -22,7 +22,7 @@ const datas: any = ref([])
         <div class="list">
             <div class="wiki-item" v-for="item in datas" @click="pageGo(item.path)">
                 <img :src="`/docs/games/posters/${item.img}`" alt="" srcset="">
-                <div class="item-titles">{{ item.titles }}</div>
+                <div class="item-titles">{{ item.title }}</div>
             </div>
         </div>
     </div>

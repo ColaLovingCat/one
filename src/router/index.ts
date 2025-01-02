@@ -54,6 +54,16 @@ const routes = [
     name: 'mhs2',
     component: () => import('@/views/func/mhs2/view.vue')
   },
+  {
+    path: '/dragon',
+    name: 'dragon',
+    component: () => import('@/views/func/dragon/view.vue')
+  },
+  {
+    path: '/posters',
+    name: 'posters',
+    component: () => import('@/views/func/posters/view.vue')
+  },
   // 配置404页面
   {
     path: '/:catchAll(.*)',

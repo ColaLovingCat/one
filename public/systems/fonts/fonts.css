@@ -1,0 +1,17 @@
+﻿@font-face {
+    font-family: "tegakizatsu";
+    src: url(851tegakizatsu.ttf);
+}
+
+.txt-tegakizatsu {
+    font-family: "tegakizatsu";
+}
+
+@font-face {
+    font-family: "XinYeNianTi";
+    src: url(XinYeNianTi-2.otf);
+}
+
+.txt-xinye {
+    font-family: "XinYeNianTi";
+}
