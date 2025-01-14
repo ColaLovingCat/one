@@ -65,24 +65,12 @@ export const menus: MenuInfos[] = [
           {
             index: '2-1-1',
             key: 'game',
-            title: '游戏',
+            title: '图鉴',
             lang: '',
             path: '',
             children: [
               {
                 index: '2-1-1-1',
-                key: '',
-                title: '游戏库',
-                lang: '',
-                path: '/stores',
-                infos: {
-                  isJump: false,
-                  status: 'HOT',
-                  desc: '已购游戏 游玩状态'
-                }
-              },
-              {
-                index: '2-1-1-2',
                 key: '',
                 title: '图鉴',
                 lang: '',

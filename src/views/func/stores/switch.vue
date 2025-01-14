@@ -49,6 +49,8 @@ export default defineComponent({
     position: relative;
     border: 5px solid #fff;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    border-radius: 0 10px 10px 0;
+    overflow: hidden;
 
     .item-cover {
         width: 235px;

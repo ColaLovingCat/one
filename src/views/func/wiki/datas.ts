@@ -1,9 +1,11 @@
 export const list = [
+    { title: "游戏库", path: 'stores', img: 'switch.jpg' },
     { title: "宝可梦", path: 'pokes', img: 'pokemon.png' },
     { title: "怪猎物语2", path: 'mhs2', img: 'mhs2.png' },
     { title: "动物森友会", path: 'animals', img: 'animal.png' },
     { title: "绝地遣兵", path: 'helldivers', img: 'helldivers.png' },
-    { title: "动漫", path: 'pokemon', img: 'cartoon.png' },
+    { title: "动漫", path: 'cartoons', img: 'cartoon.png' },
+    { title: "书架", path: 'books', img: 'books.jpg' },
     { title: "龙珠", path: 'dragon', img: 'dragonball.jpeg' },
     { title: "假面骑士", path: 'list/riders', img: 'riders.jpg' },
     { title: "F1 & Car", path: 'list/f1', img: 'f1.jpg' },

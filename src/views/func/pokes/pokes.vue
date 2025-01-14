@@ -40,12 +40,14 @@ export default defineComponent({
 <template>
     <div class="poke-item">
         <div class="item-content">
-            <div class="item-infos" :class="poke.types[0]">
+            <div class="item-infos" :class="poke.types[0]"
+                :style="`background-image: url(/docs/pokemons/bg/${poke.types[0]}.png)`">
                 <div class="item-titles">
                     <h3>{{ poke.name }}</h3>
                 </div>
-                <img class="item-img" v-bind:src="'/docs/pokemons/pokes/' + poke.img"
+                <img class="item-img" v-bind:src="`/docs/pokemons/pokes/${poke.img}.png`"
                     v-bind:class="'item-' + poke.shape" alt="" srcset="">
+                <img class="item-gif" v-bind:src="`/docs/pokemons/pokes/${poke.img}.gif`" alt="" srcset="">
             </div>
             <div class="item-no">
                 <h3>#{{ poke.no }}</h3>
@@ -96,7 +98,7 @@ export default defineComponent({
     .item-no {
         position: absolute;
         left: 12px;
-        bottom: 8px;
+        top: 45px;
         color: #fff;
         font-size: 19px;
     }
@@ -109,6 +111,7 @@ export default defineComponent({
         border: 4px solid #000;
         border-radius: 10px;
         background: #d3da51;
+        background-size: 100% 100%;
 
         .item-titles {
             padding: 2px 5px;
@@ -241,6 +244,13 @@ export default defineComponent({
         &.item-dynamax {
             transform: scale(1.1);
         }
+    }
+
+    .item-gif {
+        position: absolute;
+        bottom: 0;
+        width: unset;
+        height: 32px;
     }
 
     .item-infos:hover .item-img {

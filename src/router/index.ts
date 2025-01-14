@@ -60,9 +60,24 @@ const routes = [
     component: () => import('@/views/func/dragon/view.vue')
   },
   {
+    path: '/books',
+    name: 'books',
+    component: () => import('@/views/func/books/view.vue')
+  },
+  {
     path: '/posters',
     name: 'posters',
     component: () => import('@/views/func/posters/view.vue')
+  },
+  {
+    path: '/animals',
+    name: 'animals',
+    component: () => import('@/views/func/animals/view.vue')
+  },
+  {
+    path: '/cartoons',
+    name: 'cartoons',
+    component: () => import('@/views/func/cartoons/view.vue')
   },
   // 配置404页面
   {
